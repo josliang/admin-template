@@ -1,6 +1,6 @@
 <template>
     <div class="dashboard-container">
-        <div class="charts-row grid grid-cols-3 xl:grid-cols-2 md:grid-cols-1 gap-2">
+        <div class="charts-row grid grid-cols-1 xl:grid-cols-3 md:grid-cols-2 gap-2">
             <div class="viewMount">
                 <div class="chart-header">
                     <div class="left-title space-x-[2px]">

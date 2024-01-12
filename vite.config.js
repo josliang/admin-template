@@ -134,6 +134,11 @@ export default defineConfig({
         viteCompression({
             threshold: 1000 * 100 // 对大于 100kb 的文件进行压缩
         }),
-        visualizer()
+        visualizer({
+            filename: 'stats.html',
+            open: true, // 打包完成后自动打开stats.html（如果浏览器支持）
+            gzipSize: true, // 是否显示gzip压缩后的大小
+            brotliSize: true, // 是否显示brotli压缩后的大小
+        })
     ],
 })

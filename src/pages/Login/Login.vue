@@ -1,10 +1,10 @@
 <template>
     <div class="login-container flex items-center justify-center p-[20px]">
-        <div class="login-box w960px h560px md:w-[100%] md:px-[50px] px-[80px] py-[30px] shadow-md rounded-xl">
-            <div class="flex items-center justify-center md:hidden">
+        <div class="login-box md:w960px h560px w-[100%] px-[50px] md:px-[80px] py-[30px] shadow-md rounded-xl">
+            <div class="hidden items-center justify-center md:flex">
                 <img :src="LoginPic" alt="login-pic"/>
             </div>
-            <div class="flex justify-center w360px md:w-[100%] flex-col items-center space-y-8">
+            <div class="flex justify-center md:w360px w-[100%] flex-col items-center space-y-8">
                 <div class="space-y-2">
                     <div class="flex justify-center items-center space-x-[10px]">
                         <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="45"

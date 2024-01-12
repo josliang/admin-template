@@ -12,6 +12,7 @@ components.d.ts
 auto-imports.d.ts
 dist
 dist-ssr
+stats.html
 *.local
 
 # Editor directories and files
