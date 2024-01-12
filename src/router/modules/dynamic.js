@@ -9,7 +9,7 @@ export const dynamicRouter = [
 
         component: Layout,
         meta: {
-            icon: renderIcon(LineChartOutlined, 18, "#fff"),
+            icon: renderIcon(LineChartOutlined, 18, "#333639"),
         },
         children: [
             {
@@ -30,7 +30,7 @@ export const dynamicRouter = [
         meta: {
             title: "权限测试",
             alwaysShow: true,
-            icon: renderIcon(UserSwitchOutlined, 18, "#fff"),
+            icon: renderIcon(UserSwitchOutlined, 18, "#333639"),
         },
         children: [
             {
@@ -58,7 +58,7 @@ export const dynamicRouter = [
         name: "AboutMain",
         component: Layout,
         meta: {
-            icon: renderIcon(InfoCircleOutlined, 18, "#fff"),
+            icon: renderIcon(InfoCircleOutlined, 18, "#333639"),
         },
         children: [
             {

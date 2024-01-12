@@ -3,7 +3,7 @@
         <!-- 侧边栏 -->
         <n-layout-sider @collapse="handleCollapsed(true)" @expand="handleCollapsed(false)" :collapsed="collapsed"
                         collapse-mode="width" :collapsed-width="minMenuWidth" :width="immersion ? '0' : menuWidth"
-                        :native-scrollbar="false" inverted>
+                        :native-scrollbar="false">
             <!-- Logo -->
             <Logo :collapsed="collapsed"/>
             <!-- 侧边菜单栏 -->
@@ -67,7 +67,8 @@ const handleExitImmersion = () => {
 .layout {
     .n-layout-sider {
         transition: all 0.3s var(--n-bezier);
-        box-shadow: 2px 0 4px rgb(0 21 41 / 60%);
+        background-color: #f2f3f5;
+        box-shadow: 2px 0 4px rgb(200 200 200 / 60%);
     }
 
     .n-layout {

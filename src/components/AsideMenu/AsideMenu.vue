@@ -1,5 +1,5 @@
 <template>
-    <n-menu :options="menuList" inverted :collapsed="collapsed" :collapsed-width="minMenuWidth"
+    <n-menu :options="menuList" :collapsed="collapsed" :collapsed-width="minMenuWidth"
             :collapsed-icon-size="20"
             :indent="24" :expanded-keys="state.openKeys" :value="selectedKeys" @update:value="clickMenuItem"
             @update:expanded-keys="menuExpanded"></n-menu>
@@ -18,6 +18,7 @@ defineProps({
         required: true,
     },
 });
+
 const route = useRoute();
 const router = useRouter();
 const appStore = useAppStore();
