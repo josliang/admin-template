@@ -1,6 +1,6 @@
-# Joseph Liang Template
+# Admin Template
 
-vue3 项目模板，自动化、快速、开箱即用。
+vue3 管理后台方案，具有动态路由、权限管理，轻量简洁。
 
 ## 项目架构
 
@@ -27,4 +27,11 @@ yarn dev
 
 ```sh
 yarn build
+```
+
+## 登录
+
+```
+管理员 账号:admin  密码:123
+用户 账号:user  密码:123
 ```
