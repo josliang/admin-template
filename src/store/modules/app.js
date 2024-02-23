@@ -12,7 +12,7 @@ export const useAppStore = defineStore("app", () => {
         menuWidth: 240,
         //最小宽度
         minMenuWidth: 80,
-    })
+    });
     //菜单是否折叠状态
     const collapsed = ref(false);
     //是否沉浸模式
@@ -55,5 +55,5 @@ export const useAppStore = defineStore("app", () => {
         setIsCollapsed,
         setIsImmersion,
         clearAllState,
-    }
+    };
 });

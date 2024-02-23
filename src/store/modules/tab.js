@@ -51,5 +51,5 @@ export const useTabStore = defineStore("tab", () => {
         closeRightTabs,
         closeOtherTabs,
         closeCurrentTab,
-    }
+    };
 });

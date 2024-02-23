@@ -13,7 +13,7 @@ export const useUserStore = defineStore("user", () => {
         username,
         getUserName,
         setUserName,
-    }
+    };
 });
 
 export function useUserStoreWidthOut () {
