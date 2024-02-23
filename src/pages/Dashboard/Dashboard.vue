@@ -5,7 +5,7 @@
                 <div class="chart-header">
                     <div class="left-title space-x-[2px]">
                         <n-icon color="#3a4446" size="18">
-                            <AreaChartOutlined/>
+                            <AreaChartOutlined />
                         </n-icon>
                         <span>访问量</span>
                     </div>
@@ -17,34 +17,27 @@
         <div class="demo-box mt-[20px] w-[360px]">
             <n-space size="large" vertical>
                 <n-button type="primary">这是一个按钮</n-button>
-                <n-input type="text" placeholder="基本的 Input"/>
-                <n-switch :default-value="true"/>
+                <n-input type="text" placeholder="基本的 Input" />
+                <n-switch :default-value="true" />
             </n-space>
         </div>
     </div>
 </template>
 
 <script setup>
-import {useEcharts} from "@/hooks/useECharts";
-import {useAppStore} from "@/store/modules/app";
-import {lighten} from "@/utils";
+import { useEcharts } from "@/hooks/useECharts";
+import { useAppStore } from "@/store/modules/app";
+import { lighten } from "@/utils";
 import _echarts from "@/utils/echarts";
-import {AreaChartOutlined} from "@vicons/antd";
-import shuffle from "lodash/shuffle";
-import {computed, ref, toRaw, watch} from "vue";
+import { AreaChartOutlined } from "@vicons/antd";
+import { computed, onMounted, ref } from "vue";
 
 const appStore = useAppStore();
 const currentTheme = computed(() => appStore.getAppTheme);
 const viewMountChart = ref(null);
 
-const colorList = computed(() => {
-    let themeList = toRaw(appStore.appThemeList);
-    themeList = themeList.filter((item) => item !== currentTheme.value);
-    return [currentTheme.value, ...shuffle(themeList)];
-});
-
 const options = {
-    color: colorList.value,
+    color: "#41b584",
     tooltip: {
         trigger: "axis",
         axisPointer: {
@@ -105,33 +98,7 @@ const options = {
     ],
 };
 
-const {updateOptions} = useEcharts(viewMountChart, options);
-
-watch(
-    () => currentTheme.value,
-    (newVal) => {
-        console.log(colorList.value);
-        updateOptions({
-            color: colorList.value,
-            series: [
-                {
-                    areaStyle: {
-                        color: new _echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                            {
-                                offset: 0,
-                                color: lighten(newVal, 50),
-                            },
-                            {
-                                offset: 1,
-                                color: newVal,
-                            },
-                        ]),
-                    },
-                },
-            ],
-        });
-    }
-);
+const { updateOptions } = useEcharts(viewMountChart, options);
 </script>
 
 <style lang="scss" scoped>
@@ -139,7 +106,7 @@ watch(
     width: 100%;
     height: 300px;
     box-shadow: 0 1px 2px -2px rgba(0, 0, 0, 0.08), 0 3px 6px 0 rgba(0, 0, 0, 0.06),
-    0 5px 12px 4px rgba(0, 0, 0, 0.04);
+        0 5px 12px 4px rgba(0, 0, 0, 0.04);
     border: 1px solid #efeff5;
 
     .chart-header {

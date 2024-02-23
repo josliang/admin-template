@@ -7,24 +7,6 @@ export const useAppStore = defineStore("app", {
     state: () => ({
         //默认主题
         appTheme: "#41B584",
-        //内置主题列表
-        appThemeList: [
-            "#41B584",
-            "#1890FF",
-            "#6954F0",
-            "#10A7A7",
-            "#FF9800",
-            "#FF8474",
-            "#1BBB54",
-            "#DA705A",
-            "#B5526C",
-            "#00C1D4",
-            "#FB9300",
-            "#EE4F12",
-            "#0096C7",
-            "#9C27B0",
-            "#FF5C93",
-        ],
         //菜单样式
         menuStyle: {
             //正常菜单宽度
@@ -40,9 +22,6 @@ export const useAppStore = defineStore("app", {
     getters: {
         getAppTheme() {
             return this.appTheme;
-        },
-        getAppThemeList() {
-            return this.appThemeList;
         },
         getMenuStyle() {
             return this.menuStyle;

@@ -27,27 +27,6 @@
             </n-breadcrumb>
         </div>
         <div class="flex items-center">
-            <!-- 主题切换 -->
-            <n-popover trigger="hover" :to="false">
-                <template #trigger>
-                    <div class="icon-trigger px-[10px]">
-                        <n-icon size="20" color="#444">
-                            <Color20Regular/>
-                        </n-icon>
-                    </div>
-                </template>
-                <div class="theme-box mb-[10px]">
-                    <n-divider title-placement="center"> 内置主题</n-divider>
-                    <div class="grid grid-cols-5 gap-[6px]">
-                        <span class="theme-item" v-for="(item, index) in appThemeList" :key="index"
-                              :style="{ 'background-color': item }" @click="toggleTheme(item)">
-                            <n-icon size="16" color="#fff" v-if="item === appStore.appTheme">
-                                <Checkmark16Regular/>
-                            </n-icon>
-                        </span>
-                    </div>
-                </div>
-            </n-popover>
             <!-- 全屏切换 -->
             <div class="icon-trigger px-[10px]" @click="toggle">
                 <n-icon size="20" color="#444">
@@ -75,8 +54,6 @@ import {useRoute, useRouter} from "vue-router";
 import {
     FullScreenMaximize24Regular,
     FullScreenMinimize24Regular,
-    Color20Regular,
-    Checkmark16Regular,
 } from "@vicons/fluent";
 import {useAppStore} from "@/store/modules/app";
 import {useMessage} from "naive-ui";
@@ -86,7 +63,6 @@ const router = useRouter();
 const appStore = useAppStore();
 const message = useMessage();
 
-const appThemeList = appStore.getAppThemeList;
 const {isFullscreen, toggle} = useFullscreen();
 const emit = defineEmits(["handleCollapsed"]);
 const props = defineProps({
@@ -105,6 +81,7 @@ const dropdownOptions = [
         key: 2,
     },
 ];
+
 const generatorBreadcrumb = (routerMap) => {
     return routerMap.map((item) => {
         const currentMenu = {
@@ -131,6 +108,7 @@ const breadcrumbList = computed(() => {
 const setCollapsed = () => {
     emit("handleCollapsed", !props.collapsed);
 };
+
 // 刷新页面
 const reloadPage = () => {
     const {path, query} = route;
@@ -139,11 +117,7 @@ const reloadPage = () => {
         query,
     });
 };
-//切换主题
-const toggleTheme = (item) => {
-    localStorage.setItem("themeColor", item);
-    appStore.setAppTheme(item);
-};
+
 // 下拉选择
 const handleSelect = (key) => {
     if (key === 1) {
@@ -174,34 +148,11 @@ const handleSelect = (key) => {
         &:hover {
             background-color: #f3f3f3;
         }
-
-        //@apply flex items-center cursor-pointer hover:bg-[#f3f3f3];
     }
 
     .link-text {
         i {
             color: #6d7379 !important;
-        }
-    }
-
-    .theme-box {
-        .n-divider {
-            margin: 6px 0 10px 0;
-            font-size: 14px;
-            color: #444f5a;
-        }
-
-        .theme-item {
-            width: 22px;
-            height: 22px;
-            display: flex;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-
-            &:hover {
-                opacity: 0.8;
-            }
         }
     }
 }

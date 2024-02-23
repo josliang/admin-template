@@ -9,7 +9,7 @@ import router from "./router/index";
 import 'uno.css';
 import 'vfonts/FiraCode.css';
 import "@/assets/css/index.scss";
-import "default-passive-events";
+// import "default-passive-events";
 
 async function bootstrap () {
     const appProvider = createApp(AppProvider);
