@@ -1,6 +1,6 @@
-import {dynamicRouter} from "@/router/modules/dynamic";
-import {defineStore} from "pinia";
-import {store} from "../index";
+import { dynamicRouter } from "@/router/modules/dynamic";
+import { defineStore } from "pinia";
+import { store } from "../index";
 
 const DEFAULT_CONFIG = {
     id: "id",
@@ -13,9 +13,9 @@ const filter = (tree, func, config = {}) => {
     config = getConfig(config);
     const children = config.children;
 
-    function listFilter(list) {
+    function listFilter (list) {
         return list
-            .map((node) => ({...node}))
+            .map((node) => ({ ...node }))
             .filter((node) => {
                 node[children] = node[children] && listFilter(node[children]);
                 return func(node) || (node[children] && node[children].length);
@@ -25,44 +25,43 @@ const filter = (tree, func, config = {}) => {
     return listFilter(tree);
 };
 
-export const useMenuStore = defineStore("menu", {
-    state: () => ({
-        menus: [],
-        hasAddedRouter: false,
-    }),
-    getters: {
-        getMenus() {
-            return this.menus;
-        },
-        getHasAddedRouter() {
-            return this.hasAddedRouter;
-        },
-    },
-    actions: {
-        setMenus(menus) {
-            this.menus = menus;
-        },
-        setHasAddedRouter() {
-            this.hasAddedRouter = true;
-        },
-        generateRouters(payload) {
-            const permissionsList = payload.data.permissions;
-            const routeFilter = (route) => {
-                const {meta} = route;
-                const {permissions} = meta;
-                if (!permissions) return true;
-                return permissionsList.some((item) => permissions.includes(item));
-            };
-            let accessedRouters = filter(dynamicRouter, routeFilter);
-            this.setMenus(accessedRouters);
-            return accessedRouters;
-        },
-        clearState() {
-            this.$reset();
-        },
-    },
+export const useMenuStore = defineStore("menu", () => {
+    const menus = ref([]);
+    const hasAddedRouter = ref(false);
+
+    const getMenus = computed(() => menus.value);
+    const getHasAddedRouter = computed(() => hasAddedRouter.value);
+
+    const setMenus = (val) => {
+        menus.value = val;
+    }
+    const setHasAddedRouter = () => {
+        hasAddedRouter.value = true;
+    }
+    const generateRouters = (payload) => {
+        const permissionsList = payload.data.permissions;
+        const routeFilter = (route) => {
+            const { meta } = route;
+            const { permissions } = meta;
+            if (!permissions) return true;
+            return permissionsList.some((item) => permissions.includes(item));
+        };
+        let accessedRouters = filter(dynamicRouter, routeFilter);
+        setMenus(accessedRouters);
+        return accessedRouters;
+    }
+
+    return {
+        menus,
+        hasAddedRouter,
+        getMenus,
+        getHasAddedRouter,
+        setMenus,
+        setHasAddedRouter,
+        generateRouters,
+    }
 });
 
-export function useMenuStoreWidthOut() {
+export function useMenuStoreWidthOut () {
     return useMenuStore(store);
 }

@@ -3,13 +3,13 @@
         <Draggable :list="tabList" animation="300" item-key="name" class="flex tab-wrapper">
             <template #item="{ element }">
                 <div @click.stop="switchPage(element)" @contextmenu.prevent="handleContextMenu($event, element)"
-                     @mousewheel.passive="handleMouseWheel"
-                     :class="['tab-card-item', { 'active-item': state.activeKey === element.fullPath }]">
+                    @mousewheel.passive="handleMouseWheel"
+                    :class="['tab-card-item', { 'active-item': state.activeKey === element.fullPath }]">
                     <div class="tab-background" v-html="tabSVGImage"></div>
                     <div class="tab-content">
                         <div class="tab-title">{{ element.meta.title }}</div>
                         <n-icon class="tab-icon" @click.stop="removeTab(element)" size="12" color="#555">
-                            <CloseOutlined/>
+                            <CloseOutlined />
                         </n-icon>
                     </div>
                 </div>
@@ -17,15 +17,15 @@
         </Draggable>
 
         <n-dropdown :show="state.showDropdown" :x="state.dropdownX" :y="state.dropdownY" @clickoutside="onClickOutside"
-                    placement="bottom-start" @select="handleDropdownSelect" :options="TabMenuOptions"/>
+            placement="bottom-start" @select="handleDropdownSelect" :options="TabMenuOptions" />
     </div>
 </template>
 
 <script setup>
-import {useAppStore} from "@/store/modules/app";
-import {useTabStore} from "@/store/modules/tab";
-import {renderIcon, tabSVGImage} from "@/utils";
-import {CloseOutlined, ColumnWidthOutlined} from "@vicons/antd";
+import { useAppStore } from "@/store/modules/app";
+import { useTabStore } from "@/store/modules/tab";
+import { renderIcon, tabSVGImage } from "@/utils";
+import { CloseOutlined, ColumnWidthOutlined } from "@vicons/antd";
 import {
     DismissCircle20Regular,
     ArrowExportRtl20Regular,
@@ -33,9 +33,9 @@ import {
     ResizeLarge20Regular,
     ArrowClockwise20Regular,
 } from "@vicons/fluent";
-import {useMessage} from "naive-ui";
-import {computed, watch, reactive, unref, nextTick, ref} from "vue";
-import {useRoute, useRouter} from "vue-router";
+import { useMessage } from "naive-ui";
+import { storeToRefs } from "pinia";
+import { useRoute, useRouter } from "vue-router";
 import Draggable from "vuedraggable";
 
 const route = useRoute();
@@ -51,11 +51,11 @@ const state = reactive({
     showDropdown: false,
 });
 const currentSelect = ref("");
-const tabList = computed(() => tabStore.tabList);
+const { tabList } = storeToRefs(tabStore);
 const whiteList = ["Login", "Redirect", "ErrorPage"];
 
 const TabMenuOptions = computed(() => {
-    const isDisabled = unref(tabList).length <= 1;
+    const isDisabled = tabList.value.length <= 1;
     const isImmersion = appStore.getIsImmersion;
     return [
         {
@@ -64,11 +64,11 @@ const TabMenuOptions = computed(() => {
             icon: renderIcon(DismissCircle20Regular, 18),
             disabled: isDisabled,
         },
-        {key: 2, label: "关闭左侧", icon: renderIcon(ArrowExportRtl20Regular, 18)},
-        {key: 3, label: "关闭右侧", icon: renderIcon(ArrowExportLtr20Regular, 18)},
-        {key: 4, label: "关闭其它", icon: renderIcon(ColumnWidthOutlined, 19), disabled: isDisabled},
-        {key: "divider", type: "divider"},
-        {key: 5, label: "刷新页面", icon: renderIcon(ArrowClockwise20Regular, 18)},
+        { key: 2, label: "关闭左侧", icon: renderIcon(ArrowExportRtl20Regular, 18) },
+        { key: 3, label: "关闭右侧", icon: renderIcon(ArrowExportLtr20Regular, 18) },
+        { key: 4, label: "关闭其它", icon: renderIcon(ColumnWidthOutlined, 19), disabled: isDisabled },
+        { key: "divider", type: "divider" },
+        { key: 5, label: "刷新页面", icon: renderIcon(ArrowClockwise20Regular, 18) },
         {
             key: 6,
             label: "沉浸模式",
@@ -79,13 +79,13 @@ const TabMenuOptions = computed(() => {
 });
 
 const getSimpleRoute = (route) => {
-    const {fullPath, hash, meta, name, params, path, query} = route;
-    return {fullPath, hash, meta, name, params, path, query};
+    const { fullPath, hash, meta, name, params, path, query } = route;
+    return { fullPath, hash, meta, name, params, path, query };
 };
 
 //切换页面
 const switchPage = (element) => {
-    const {path, query, fullPath} = element;
+    const { path, query, fullPath } = element;
     if (fullPath === route.fullPath) return;
     state.activeKey = fullPath;
     router.push({
@@ -121,7 +121,7 @@ const handleContextMenu = (e, element) => {
 
 // 关闭页面
 const removeTab = (selectTab) => {
-    if (unref(tabList).length === 1) {
+    if (tabList.value.length === 1) {
         return message.warning("这已经是最后一页，不能再关闭了！");
     }
     tabStore.closeCurrentTab(selectTab);
@@ -156,7 +156,7 @@ const closeOther = (selectTab) => {
 
 // 刷新页面
 const handleRefreshPage = (selectTab) => {
-    const {path, query} = selectTab;
+    const { path, query } = selectTab;
     router.push({
         path: "/redirect" + path,
         query,
@@ -204,7 +204,7 @@ watch(
         state.activeKey = to;
         tabStore.addTabList(getSimpleRoute(route));
     },
-    {immediate: true}
+    { immediate: true }
 );
 </script>
 

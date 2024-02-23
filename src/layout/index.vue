@@ -2,37 +2,37 @@
     <n-layout class="layout" position="absolute" has-sider>
         <!-- 侧边栏 -->
         <n-layout-sider @collapse="handleCollapsed(true)" @expand="handleCollapsed(false)" :collapsed="collapsed"
-                        collapse-mode="width" :collapsed-width="minMenuWidth" :width="immersion ? '0' : menuWidth"
-                        :native-scrollbar="false">
+            collapse-mode="width" :collapsed-width="minMenuWidth" :width="immersion ? '0' : menuWidth"
+            :native-scrollbar="false">
             <!-- Logo -->
-            <Logo :collapsed="collapsed"/>
+            <Logo :collapsed="collapsed" />
             <!-- 侧边菜单栏 -->
-            <AsideMenu :collapsed="collapsed"/>
+            <AsideMenu :collapsed="collapsed" />
         </n-layout-sider>
 
         <n-layout>
             <!-- 顶部 -->
             <n-layout-header position="absolute">
                 <!-- 顶部导航栏 -->
-                <HeaderNav :collapsed="collapsed" v-show="!immersion" @handleCollapsed="handleCollapsed"/>
+                <HeaderNav :collapsed="collapsed" v-show="!immersion" @handleCollapsed="handleCollapsed" />
                 <!-- 顶部标签栏 -->
-                <HeaderTab/>
+                <HeaderTab />
             </n-layout-header>
 
             <!-- 内容主体 -->
             <n-layout-content position="absolute" :native-scrollbar="false"
-                              :class="['layout-content', immersion ? 'is-immersion' : '']">
+                :class="['layout-content', immersion ? 'is-immersion' : '']">
                 <div class="layout-content-main">
                     <router-view v-slot="{ Component, route }">
                         <transition name="zoom-fade" mode="out-in" appear>
-                            <component :is="Component" :key="route.fullPath"/>
+                            <component :is="Component" :key="route.fullPath" />
                         </transition>
                     </router-view>
                 </div>
                 <div class="immersion-box shadow-sm hover:opacity-80" :class="immersion ? 'enter-immersion' : ''"
-                     @click="handleExitImmersion">
+                    @click="handleExitImmersion">
                     <n-icon color="#899" :size="22">
-                        <ResizeSmall24Regular/>
+                        <ResizeSmall24Regular />
                     </n-icon>
                 </div>
             </n-layout-content>
@@ -41,16 +41,17 @@
 </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import Logo from "@/components/Logo/Logo";
 import AsideMenu from "@/components/AsideMenu/AsideMenu";
-import {useAppStore} from "@/store/modules/app";
+import { useAppStore } from "@/store/modules/app";
 import HeaderNav from "@/components/HeaderNav/HeaderNav";
 import HeaderTab from "@/components/HeaderTab/HeaderTab";
-import {computed} from "vue";
-import {ResizeSmall24Regular} from "@vicons/fluent";
+import { ResizeSmall24Regular } from "@vicons/fluent";
 
 const appStore = useAppStore();
-const {menuWidth, minMenuWidth} = appStore.getMenuStyle;
+const { getMenuStyle } = storeToRefs(appStore);
+const { menuWidth, minMenuWidth } = getMenuStyle.value;
 const collapsed = computed(() => appStore.getIsCollapsed);
 const immersion = computed(() => appStore.getIsImmersion);
 
