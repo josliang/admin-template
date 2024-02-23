@@ -30,7 +30,6 @@ import { useAppStore } from "@/store/modules/app";
 import { lighten } from "@/utils";
 import _echarts from "@/utils/echarts";
 import { AreaChartOutlined } from "@vicons/antd";
-import { computed, onMounted, ref } from "vue";
 
 const appStore = useAppStore();
 const currentTheme = computed(() => appStore.getAppTheme);
